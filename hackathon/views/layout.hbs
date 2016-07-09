@@ -1,10 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+<head>
+  <title>{{title}}</title>
+
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Titillium+Web:400,600' rel='stylesheet' type='text/css'>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="/bootstrap3-typeahead.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <img src=""C:\Users\swoodward\Downloads\DynamicsTest1.jpg" id="masthead">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="nav-collapse">
+        <form class="navbar-form navbar-left" role="search" style="display:none">
+          <div class="form-group">
+            <input type="text" class="form-control" id="nav-search-text">
+          </div>
+          <button type="submit" class="btn btn-default" id="nav-search-button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li id="review"><a href="/reviews/new">Review</a></li>
+          <li id="browse"><a href="/restaurants/list/1">Browse</a></li>
+          <li id="create"><a href="/restaurants/new">Create</a></li>
+          <li id="profiles"><a href="/profiles">Profiles</a></li>
+          <li id="logout"><a href="/logout">Logout</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="container">
     {{{body}}}
-  </body>
+  </div>
+</body>
 </html>
