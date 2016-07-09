@@ -1,8 +1,40 @@
+html, body {
+  background: url("../images/background_img.jpeg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+}
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #e6e6e6;
 }
 
 a {
   color: #00B7FF;
+}
+
+#logo {
+  max-width: 20%;
+  flex:auto;
+}
+
+nav {
+    opacity: 0.6;
+}
+
+nav:hover {
+    opacity: 1.0;
+}
+
+#searchbar {
+  max-width: ;
+  flex: auto;
+}
+
+.page-container {
+
 }
