@@ -30,9 +30,9 @@ router.post('/', function(req, res, next) {
 	res.render('index', {
 		tracks: tracks
 	})
-   // $(tracks).each(function(index, track) {
-   //   $('#results').append($('<li></li>').html(track.title + ' - ' + track.genre));
-   // });
+  //  $(tracks).each(function(index, track) {
+  //    $('#results').append($('<li></li>').html(track.title + ' - ' + track.genre));
+  //  });
   });
 })
 
