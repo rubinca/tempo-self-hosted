@@ -1,6 +1,11 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-
+<form class="form-inline">
+  <div class="form-group">
+    <label for="search">Search</label>
+    <input type="text" class="form-control" id="search" placeholder="Enter your search">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+<div></div>
 
 <!-- <script>
 $('.submit-button').click(function(e) {
@@ -12,7 +17,7 @@ $('.submit-button').click(function(e) {
 		},
 		sucesss: function(e) {
 			var e = JSON.parse(e);
-			
+
 		}
 
 	})
