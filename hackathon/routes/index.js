@@ -3,18 +3,17 @@ var router = express.Router();
 
 // soundcloud authentification
 var SC = require('node-soundcloud');
- 
-// Initialize client 
+
+// Initialize client
 SC.init({
   id: process.env.CLIENT_ID,
   secret: 'universe',
   uri: 'http://localhost:3000/'
 });
- 
-// Connect user to authorize application 
+
+// Connect user to authorize application
 var initOAuth = function(req, res) {
   var url = SC.getConnectUrl();
- 
   res.writeHead(301, "http://localhost:3000/");
   res.end();
 };
