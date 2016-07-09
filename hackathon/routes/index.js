@@ -26,15 +26,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	console.log('posted')
 	SC.get('/tracks', { title: req.body.search }, function(error, tracks) {
-		console.log('made call', tracks, error)
 	res.render('index', {
 		tracks: tracks
 	})
-   // $(tracks).each(function(index, track) {
-   //   $('#results').append($('<li></li>').html(track.title + ' - ' + track.genre));
-   // });
   });
 })
 
