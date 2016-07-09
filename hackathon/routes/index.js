@@ -6,7 +6,7 @@ var SC = require('node-soundcloud');
  
 // Initialize client 
 SC.init({
-  id: process.env,
+  id: process.env.CLIENT_ID,
   secret: 'universe',
   uri: 'http://localhost:3000/'
 });
@@ -15,7 +15,7 @@ SC.init({
 var initOAuth = function(req, res) {
   var url = SC.getConnectUrl();
  
-  res.writeHead(301, Location: url);
+  res.writeHead(301, "http://localhost:3000/");
   res.end();
 };
 
@@ -26,7 +26,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	SC.get('/tracks', { title: req.body.title }, function(tracks) {
+	console.log('posted')
+	SC.get('/tracks', { title: req.body.search }, function(error, tracks) {
+		console.log('made call', tracks, error)
 	res.render('index', {
 		tracks: tracks
 	})
