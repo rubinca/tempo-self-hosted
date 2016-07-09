@@ -1,3 +1,5 @@
+<div>Caitlin</div>
+
 <form class="form-inline">
   <div class="form-group">
     <label for="search">Search</label>
@@ -5,7 +7,11 @@
   </div>
   <button type="submit" class="btn btn-primary">Search</button>
 </form>
-<div></div>
+<div>
+	{{#each tracks}} 
+		{{this.title}}
+	{{/each}}
+</div>
 
 
 <!-- <script>
