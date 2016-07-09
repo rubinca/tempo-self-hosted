@@ -1,2 +1,21 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+
+<!-- <script>
+$('.submit-button').click(function(e) {
+	$.ajax({
+		method: "GET",
+		url: "https://api.soundcloud.com/tracks?client_id=" + process.env.CLIENT_ID,
+		data: {
+			title: $("searchbar").val(),
+		},
+		sucesss: function(e) {
+			var e = JSON.parse(e);
+			
+		}
+
+	})
+})
+
+</script> -->
