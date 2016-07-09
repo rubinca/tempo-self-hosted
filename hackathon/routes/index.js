@@ -26,7 +26,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	SC.get('/tracks', { title: req.body.search }, function(error, tracks) {
+	SC.get('/tracks', { title: req.body.search, limit: 3}, function(error, tracks) {
+	console.log(tracks)
+
 	res.render('index', {
 		tracks: tracks
 	})
