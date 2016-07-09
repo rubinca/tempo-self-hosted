@@ -3,18 +3,18 @@ var router = express.Router();
 
 // soundcloud authentification
 var SC = require('node-soundcloud');
- 
-// Initialize client 
+
+// Initialize client
 SC.init({
   id: process.env,
   secret: 'universe',
   uri: 'http://localhost:3000/'
 });
- 
-// Connect user to authorize application 
+
+// Connect user to authorize application
 var initOAuth = function(req, res) {
   var url = SC.getConnectUrl();
- 
+
   res.writeHead(301, Location: url);
   res.end();
 };
@@ -30,9 +30,9 @@ router.post('/', function(req, res, next) {
 	res.render('index', {
 		tracks: tracks
 	})
-   // $(tracks).each(function(index, track) {
-   //   $('#results').append($('<li></li>').html(track.title + ' - ' + track.genre));
-   // });
+  //  $(tracks).each(function(index, track) {
+  //    $('#results').append($('<li></li>').html(track.title + ' - ' + track.genre));
+  //  });
   });
 })
 
