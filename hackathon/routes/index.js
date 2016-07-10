@@ -7,6 +7,14 @@ youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
 
 var SC = require('node-soundcloud');
 
+var SpotifyWebApi = require('spotify-web-api-node');
+
+// credentials are optional
+var spotifyApi = new SpotifyWebApi({
+  clientId : process.env.SPOTIFY_CLIENT_ID,
+  clientSecret : process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri : 'http://localhost:3000/'
+});
 // Initialize client
 SC.init({
   id: process.env.CLIENT_ID,
@@ -37,7 +45,7 @@ router.get('/callback', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var results = [];
-  console.log("REQBODY", req.body.search)
+  // console.log("REQBODY", req.body.search)
   var callback = function(error, result) {
     if(error) {
       console.log(error)
@@ -45,10 +53,11 @@ router.post('/', function(req, res, next) {
     }
     else {
       results.push(result);
-      if(results.length === 2) {
+      if(results.length === 3) {
         var youtube = [];
         var soundcloud = [];
-        console.log("RESULTS", results)
+        var spotify = [];
+        // console.log("RESULTS", results)
         for( var i = 0; i < results.length; i++) {
           //console.log("RESULTS", results)
           if (results[i][0]) {
@@ -60,6 +69,9 @@ router.post('/', function(req, res, next) {
             youtube = youtube.concat(results[i]["items"])
 
           }
+          else if(results[i]["tracks"]) {
+            spotify = spotify.concat(results[i]["tracks"]["items"])
+          }
           else {
             console.log("IDK", results)
           }
@@ -67,11 +79,17 @@ router.post('/', function(req, res, next) {
 
         res.render('index', {
           youtube: youtube,
-          soundcloud: soundcloud
+          soundcloud: soundcloud,
+          spotify: spotify
         })
       }
     }
   }
+
+  spotifyApi.searchTracks(req.body.search)
+    .then(callback, function(error) {
+      console.log("PROMISE ERROR", error)
+    });
 
   youTube.search(req.body.search, 2, callback);
 	SC.get('/tracks', { title: req.body.search, limit: 3}, callback);
