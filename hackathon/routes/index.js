@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var YouTube = require('youtube-node');
+var mp3 = require('youtube-mp3');
 
 var youTube = new YouTube();
 youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
@@ -97,6 +98,16 @@ router.post('/browse', function(req, res, next) {
 
   youTube.search(req.body.search, 2, callback);
 	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
+})
+
+router.get('/download', function(req, res, next) {
+  console.log('made request')
+  console.log('https://www.youtube.com/watch?v=' + req.query.v)
+	mp3.download('https://www.youtube.com/watch?v=' + req.query.v, 'LXJS 2013 Keynote', function(err) {
+	    if(err) return console.log(err);
+	    console.log('Download completed!');
+      
+	});
 })
 
 router.use(function(req, res, next){
