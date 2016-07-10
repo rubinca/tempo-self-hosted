@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var YouTube = require('youtube-node');
+var mp3 = require('youtube-mp3');
 
 var youTube = new YouTube();
 youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
@@ -32,6 +33,10 @@ var initOAuth = function(req, res) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.render('land');
+});
+
+router.get('/browse', function(req, res, next) {
   res.render('index', {
     clientId: process.env.CLIENT_ID
   });
@@ -42,7 +47,7 @@ router.get('/callback', function(req, res, next) {
 });
 
 
-router.post('/', function(req, res, next) {
+router.post('/browse', function(req, res, next) {
   var results = [];
   // console.log("REQBODY", req.body.search)
   var callback = function(error, result) {
@@ -78,7 +83,7 @@ router.post('/', function(req, res, next) {
             console.log("IDK", results)
           }
         }
-        //spotify.slice(0, 3);
+        spotify = spotify.splice(0, 3);
         console.log("SPOTIFY RESULTS", spotify)
         res.render('index', {
           youtube: youtube,
@@ -98,6 +103,16 @@ router.post('/', function(req, res, next) {
   youTube.search(req.body.search, 2, callback);
 	SC.get('/tracks', { q: req.body.search, limit: 10}, callback);
 
+
+router.get('/download', function(req, res, next) {
+  console.log('made request')
+  console.log('https://www.youtube.com/watch?v=' + req.query.v)
+	mp3.download('https://www.youtube.com/watch?v=' + req.query.v, 'LXJS 2013 Keynote', function(err) {
+	    if(err) return console.log(err);
+	    console.log('Download completed!');
+      
+	});
+})
 
 router.use(function(req, res, next){
   if (!req.user) {
