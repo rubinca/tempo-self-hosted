@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var YouTube = require('youtube-node');
 
-// soundcloud authentification
+var youTube = new YouTube();
+youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
+
 var SC = require('node-soundcloud');
 
 // Initialize client
@@ -19,20 +22,59 @@ var initOAuth = function(req, res) {
   res.end();
 };
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // TODO ADD IN WHATEVER INFO SERENA NEEDS TO RENDER THE PAGE
-  res.render('index');
+  res.render('index', {
+    clientId: process.env.CLIENT_ID
+  });
 });
 
-router.post('/', function(req, res, next) {
-	SC.get('/tracks', { title: req.body.search, limit: 3}, function(error, tracks) {
-	console.log(tracks)
+router.get('/callback', function(req, res, next) {
+  res.send("RANDOM");
+});
 
-	res.render('index', {
-		tracks: tracks
-	})
-  });
+
+router.post('/', function(req, res, next) {
+  var results = [];
+  var callback = function(error, result) {
+    if(error) {
+      console.log(error)
+      return next(error);
+    }
+    else {
+      results.push(result);
+      if(results.length === 2) {
+        var youtube = [];
+        var soundcloud = [];
+        for( var i = 0; i < results.length; i++) {
+          console.log("this is i", i)
+          //console.log("RESULTS", results)
+          console.log("WORKING CALLBACK", results[i])
+          if (results[i][0]) {
+            if(results[i][0].kind === "track") {
+              soundcloud = soundcloud.concat(results[i])
+            }
+          }
+          else if(results[i].kind === "youtube#searchListResponse") {
+            youtube = youtube.concat(results[i]["items"])
+
+          }
+          else {
+            console.log("IDK", results)
+          }
+        }
+
+        res.render('index', {
+          youtube: youtube,
+          soundcloud: soundcloud
+        })
+      }
+    }
+  }
+
+  youTube.search(req.body.search, 2, callback);
+	SC.get('/tracks', { title: req.body.search, limit: 3}, callback);
 })
 
 module.exports = router;
