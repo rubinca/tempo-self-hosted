@@ -46,7 +46,7 @@ router.get('/callback', function(req, res, next) {
 });
 
 
-router.post('/', function(req, res, next) {
+router.post('/browse', function(req, res, next) {
   var results = [];
   // console.log("REQBODY", req.body.search)
   var callback = function(error, result) {
