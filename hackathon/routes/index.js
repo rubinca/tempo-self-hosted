@@ -37,6 +37,7 @@ router.get('/callback', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var results = [];
+  console.log("REQBODY", req.body.search)
   var callback = function(error, result) {
     if(error) {
       console.log(error)
@@ -47,10 +48,9 @@ router.post('/', function(req, res, next) {
       if(results.length === 2) {
         var youtube = [];
         var soundcloud = [];
+        console.log("RESULTS", results)
         for( var i = 0; i < results.length; i++) {
-          console.log("this is i", i)
           //console.log("RESULTS", results)
-          console.log("WORKING CALLBACK", results[i])
           if (results[i][0]) {
             if(results[i][0].kind === "track") {
               soundcloud = soundcloud.concat(results[i])
