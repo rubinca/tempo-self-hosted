@@ -1,5 +1,6 @@
 html, body {
-  background: url("../images/background_img.jpeg") no-repeat center center fixed;
+  background: url("../images/backgroud_image2.jpeg") no-repeat center center fixed;
+  /*background-color: black;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -10,6 +11,11 @@ body {
   /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #e6e6e6;
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
 }
 
 /*FOR PADDING*/
@@ -45,4 +51,50 @@ nav:hover {
 }
 .background-thing{
   background-color: rgba(230, 230, 230, 0.5);
+}
+
+.landing-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(230, 230, 230, 0.5);
+  -webkit-box-shadow: 0 8px 6px -6px black;
+     -moz-box-shadow: 0 8px 6px -6px black;
+          box-shadow: 0 8px 6px -6px black;
+}
+
+.splash-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.splash {
+  display: flex;
+  justify-content: center;
+}
+
+#logreg-container{
+  background-color: rgb(230, 230, 230);
+  border-radius: 10px;
+}
+
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
 }
