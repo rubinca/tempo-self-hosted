@@ -16,29 +16,11 @@ visual=true" style="display: block; float: left"></iframe>
 </div>
 <div>
 {{#each youtube}}
-<iframe id="ytplayer" type="text/html" width="640" height="390"
-  src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=1&origin=http://example.com"
+<iframe id="ytplayer" type="text/html" width="70%" height="100"
+  src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=0&origin=http://example.com"
   frameborder="0"></iframe>
 {{/each}}
 </div>
 
 
 </div>
-
-<!-- <script>
-$('.submit-button').click(function(e) {
-	$.ajax({
-		method: "GET",
-		url: "https://api.soundcloud.com/tracks?client_id=" + process.env.CLIENT_ID,
-		data: {
-			title: $("searchbar").val(),
-		},
-		sucesss: function(e) {
-			var e = JSON.parse(e);
-
-		}
-
-	})
-})
-
-</script> -->
