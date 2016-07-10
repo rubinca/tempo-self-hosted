@@ -76,6 +76,7 @@ router.post('/', function(req, res, next) {
             console.log("IDK", results)
           }
         }
+        //spotify.slice(0, 3);
         console.log("SPOTIFY RESULTS", spotify)
         res.render('index', {
           youtube: youtube,
