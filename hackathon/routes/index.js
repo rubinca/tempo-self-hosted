@@ -29,13 +29,6 @@ var initOAuth = function(req, res) {
   res.end();
 };
 
-router.use(function(req, res, next){
-  if (!req.user) {
-    res.redirect('/login');
-  } else {
-    return next();
-  }
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -102,5 +95,17 @@ router.post('/', function(req, res, next) {
   youTube.search(req.body.search, 2, callback);
 	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
 })
+
+router.use(function(req, res, next){
+  if (!req.user) {
+    res.redirect('/login');
+  } else {
+    return next();
+  }
+});
+
+router.get('/account', function(req, res, next) {
+	res.render('account');
+});
 
 module.exports = router;
