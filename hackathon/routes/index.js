@@ -106,5 +106,9 @@ router.use(function(req, res, next){
   }
 });
 
+router.get('/account', function(req, res, next) {
+	res.render('account');
+});
+
 
 module.exports = router;
