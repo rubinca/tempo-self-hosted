@@ -2,9 +2,14 @@ var express = require('express');
 var router = express.Router();
 var YouTube = require('youtube-node');
 var mp3 = require('youtube-mp3');
+var path = require('path');
 
 var youTube = new YouTube();
 youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
+
+var fs = require('fs');
+var youtubedl = require('youtube-dl');
+
 
 var SC = require('node-soundcloud');
 var SpotifyWebApi = require('spotify-web-api-node');
@@ -105,13 +110,30 @@ router.post('/browse', function(req, res, next) {
 })
 
 router.get('/download', function(req, res, next) {
-  console.log('made request')
-  console.log('https://www.youtube.com/watch?v=' + req.query.v)
-	mp3.download('https://www.youtube.com/watch?v=' + req.query.v, 'LXJS 2013 Keynote', function(err) {
-	    if(err) return console.log(err);
-	    console.log('Download completed!');
-      
-	});
+youtubedl.exec('http://www.youtube.com/?v=' + req.query.v, ['-x', '--audio-format', 'mp3'], {}, function(err, output) {
+  if (err) throw err;
+  console.log(output.join('\n'));
+
+  console.log(output)
+  var string = '';
+  for (var i  = 0; i < output.length; i++) {
+    if (output[i].substring(0, 2) === "[f") {
+      string += output[i]
+    }
+  }
+  res.download(path.resolve(__dirname + "/../" + output[output.indexOf(string)].substring(output[output.indexOf(string)].indexOf(':') + 2)));
+
+  // res.sendFile()
+});
+
+//   var video = youtubedl('http://www.youtube.com/?v=' + req.query.v,
+//   // Optional arguments passed to youtube-dl.
+//   ['-x', '-v', "--audio-format", 'mp3'],
+//   // Additional options can be given for calling `child_process.execFile()`.
+//   { cwd: __dirname });
+
+
+// video.pipe(res);
 })
 
 router.use(function(req, res, next){
