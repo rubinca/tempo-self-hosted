@@ -53,11 +53,12 @@ router.post('/', function(req, res, next) {
     }
     else {
       results.push(result);
+
       if(results.length === 3) {
         var youtube = [];
         var soundcloud = [];
         var spotify = [];
-        // console.log("RESULTS", results)
+        console.log("RESULTS", results)
         for( var i = 0; i < results.length; i++) {
           //console.log("RESULTS", results)
           if (results[i][0]) {
@@ -69,14 +70,14 @@ router.post('/', function(req, res, next) {
             youtube = youtube.concat(results[i]["items"])
 
           }
-          else if(results[i]["tracks"]) {
-            spotify = spotify.concat(results[i]["tracks"]["items"])
+          else if(results[i].body.tracks) {
+            spotify = spotify.concat(results[i].body.tracks.items)
           }
           else {
             console.log("IDK", results)
           }
         }
-
+        console.log("SPOTIFY RESULTS", spotify)
         res.render('index', {
           youtube: youtube,
           soundcloud: soundcloud,
@@ -87,8 +88,9 @@ router.post('/', function(req, res, next) {
   }
 
   spotifyApi.searchTracks(req.body.search)
-    .then(callback, function(error) {
-      console.log("PROMISE ERROR", error)
+    .then(callback.bind(null, null), function(error) {
+      console.log("PROMISE ERROR", error);
+      next(error)
     });
 
   youTube.search(req.body.search, 2, callback);
