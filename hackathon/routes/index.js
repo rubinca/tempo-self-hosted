@@ -94,7 +94,7 @@ router.post('/', function(req, res, next) {
     });
 
   youTube.search(req.body.search, 2, callback);
-	SC.get('/tracks', { title: req.body.search, limit: 3}, callback);
+	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
 })
 
 module.exports = router;
