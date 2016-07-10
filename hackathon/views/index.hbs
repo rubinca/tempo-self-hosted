@@ -1,31 +1,39 @@
 <div class="page-container">
-
-<form method="POST" class="form-inline">
-  <div class="form-group" id="searchbar">
-    <label for="search">Search</label>
-    <input name="search" type="text" class="form-control" id="search" placeholder="Enter your search">
+  <div class="row search-row">
+    <form method="POST">
+      <div class="input-group input-group-lg">
+        <input type="text" class="form-control" name="search" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </form>
   </div>
-  <button type="submit" class="btn btn-primary">Search</button>
-</form>
-<div>
+	{{#if soundcloud}}
+	  <h2>soundcloud</h2>
+	{{/if}}
 	{{#each soundcloud}}
-<iframe width="80%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/
-{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;
-visual=true" style="display: block; float: left"></iframe>
+    <div class="row soundcloud-row">
+      <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;
+      visual=true" style="display: block; float: left"></iframe>
+    </div>
 	{{/each}}
-</div>
-<div>
-{{#each youtube}}
-<iframe id="ytplayer" type="text/html" width="80%" height="100"
-  src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=0&origin=http://example.com"
-  frameborder="0"></iframe>
-{{/each}}
-
-{{#each spotify}}
-<iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}" width="80%" height="100" frameborder="0" allowtransparency="true"></iframe>
-{{/each}}
-
-
-
+	{{#if youtube}}
+	  <h2>youtube</h2>
+	{{/if}}
+  {{#each youtube}}
+    <div class="row youtube-row">
+      <iframe id="ytplayer" type="text/html" width="100%" height="100" src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=0&origin=http://example.com"
+      frameborder="0"></iframe>
+    </div>
+  {{/each}}
+	{{#if spotify}}
+	  <h2>spotify</h2>
+	{{/if}}
+  {{#each spotify}}
+  <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+  {{/each}}
 
 </div>
