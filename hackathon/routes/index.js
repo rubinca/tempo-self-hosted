@@ -6,7 +6,6 @@ var youTube = new YouTube();
 youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
 
 var SC = require('node-soundcloud');
-
 var SpotifyWebApi = require('spotify-web-api-node');
 
 // credentials are optional
@@ -30,6 +29,13 @@ var initOAuth = function(req, res) {
   res.end();
 };
 
+router.use(function(req, res, next){
+  if (!req.user) {
+    res.redirect('/login');
+  } else {
+    return next();
+  }
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

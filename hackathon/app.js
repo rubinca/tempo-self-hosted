@@ -1,18 +1,18 @@
 var express = require('express');
 var path = require('path');
+var session = require('express-session')
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
-
+var models = require('./models/models')
+var routes = require('./routes/index');
+var auth = require('./routes/auth');
+var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
 
-// var passport = require('passport');
-// var LocalStrategy = require('passport-local');
-
-var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
