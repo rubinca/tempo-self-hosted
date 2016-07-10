@@ -218,7 +218,7 @@ router.post('/addToPlaylist', function(req, res, next) {
       next(err)
     }
     else {
-      playlist = playlist.songs.push(req.body.ID_OF_SONG);
+      playlist = playlist.songs.push(req.body.id, req.body.kind);
       playlist.save(function(err, playlist) {
         if (err) {
           next(err)
