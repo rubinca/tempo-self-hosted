@@ -1,3 +1,118 @@
+<!-- <div class="container">
+  <h2>Your Playlists</h2>
+  <ul class="nav nav-tabs">
+    {{#each playlists}}
+      <li><a data-toggle="tab" href="#{{this.name}}">{{this.name}}</a></li>
+    {{/each}}
+  </ul> -->
+
+    <!-- <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+    <li><a data-toggle="tab" href="#menu3">Menu 3</a></li> -->
+
+<!--     {{#each playlists}}
+    <div class="tab-content">
+      <div id="{{this.name}}" class="tab-pane fade in active">
+        <h3>{{this.name}}</h3>
+        {{#each this.songs}}
+          {{#if this.spotify}}
+          <div class="spotify-row">
+            <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}?sharing=true" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+          </div>
+          {{/if}}
+          {{#if this.youtube}}
+          <div class="youtube-row">
+            <iframe id="ytplayer" type="text/html" width="100%" height="100" src="https://www.youtube.com/embed/{{this.id}}?autoplay=0&origin=http://example.com"
+            frameborder="0"></iframe>
+            <form action='/download'>
+              <input style="background-color:grey; border:none; width: 100%; height: 30px; opacity: 0.9"class="btn btn-primary" type='submit' value="Download">
+              < <button type="button" class="submit-button btn btn-primary">Download</button> -->
+             <!--  <input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id}}">
+            </form>
+          </div>
+          {{/if}}
+          {{#if this.soundcloud}}
+          <div class="soundcloud-row">
+            <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;sharing=true&amp;liking=true&amp;show_reposts=false&amp;
+            visual=true" style="display: block; float: left"></iframe>
+          </div>
+          {{/if}}
+      {{/each}}
+    {{/each}}
+      </div>
+    </div>
+  </div>
+
+<script>
+  $(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+      $(this).tab('show');
+    });
+  });
+</script> -->
+
+ -->
+
+<div class="container">
+  <h2>Dynamic Tabs</h2>
+  
+  <ul class="nav nav-tabs">
+    {{#each playlists}}
+    <li class="active"><a href="#home">{{this.name}}</a></li>
+    <li><a href="#{{this.name}}">Menu 1</a></li>
+    {{/each}}
+  </ul>
+
+
+  {{#each playlists}}
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="{{this.name}}" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </div>
+</div>
+  {{/each}}
+
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(e){
+      e.preventDefault()
+        $(this).tab('show');
+    });
+});
+</script>
+
+
+
+
+
+
+  <!-- <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+</div>
+
+
 
 <div>Playlists</div>
 <div class="row background-thing">
@@ -15,8 +130,8 @@
       frameborder="0"></iframe>
       <form action='/download'>
         <input style="background-color:grey; border:none; width: 100%; height: 30px; opacity: 0.9"class="btn btn-primary" type='submit' value="Download">
-        <!-- <button type="button" class="submit-button btn btn-primary">Download</button> -->
-        <input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id}}">
+        <button type="button" class="submit-button btn btn-primary">Download</button> -->
+        <!-- <input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id}}">
       </form>
     </div>
     {{/if}}
@@ -27,8 +142,8 @@
     </div>
     {{/if}}
   {{/each}}
-{{/each}}
-</div>
+{{/each}} -->
+<!-- </div>  -->
 <!-- <h3>Current Queue</h3> -->
 
 <!-- <table class="table table-inverse">
