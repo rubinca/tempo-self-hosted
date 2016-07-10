@@ -26,18 +26,25 @@ var userSchema = new mongoose.Schema({
   }
 });
 
-// <<<<<<< HEAD
 userSchema.virtual('name.full').get(function() {
   return this.name.first + ' ' + this.name.last
 });
-// =======
-// userSchema.methods.getFollows = function (id, callback){
-// // >>>>>>> master
 
-userSchema.virtual('location.full').get(function() {
-  return this.location.city + ', ' + this.location.state + '; ' +
-  this.location.country
+
+// userSchema.virtual('location.full').get(function() {
+//   return this.location.city + ', ' + this.location.state + '; ' +
+//   this.location.country
+// })
+
+var playlistSchema = new mongoose.Schema({
+  user: mongoose.Schema.Types.ObjectId,
+  name: String,
+  songs: [{
+    id: mongoose.Schema.Types.ObjectId,
+  }]
 })
+
 module.exports = {
-  User: mongoose.model('User', userSchema)
+  User: mongoose.model('User', userSchema),
+  Playlist: mongoose.model('Playlist', playlistSchema)
 }
