@@ -1,0 +1,56 @@
+<div class="page-container">
+  <div class="row search-row">
+    <form method="POST" action="/browse" class="search">
+      <div class="input-group input-group-lg">
+        <input type="text" class="form-control" name="search" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+
+  <div class="row background-thing">
+  	{{#if soundcloud}}
+    <div class="col-lg-2 col-md-2 col-sm-2">
+      <a href="/soundcloud"><img class="img-responsive logo-image" src="../images/soundcloud.png" /></a>
+    </div>
+
+  <div class="col-lg-10 col-md-10 col-sm-10">
+  	{{#each soundcloud}}
+      <div class="soundcloud-row">
+        <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;sharing=true&amp;liking=true&amp;show_reposts=false&amp;
+        visual=true" style="display: block; float: left"></iframe>
+      </div>
+  	{{/each}}
+  </div>
+  {{/if}}
+  	{{#if youtube}}
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <img class="img-responsive logo-image" src="../images/youtube.png" />
+      </div>
+  <div class="col-lg-10 col-md-10 col-sm-10">
+    {{#each youtube}}
+      <div class="youtube-row">
+        <iframe id="ytplayer" type="text/html" width="100%" height="100" src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=0&origin=http://example.com"
+        frameborder="0"></iframe>
+      </div>
+    {{/each}}
+    </div>
+  {{/if}}
+
+  {{#if spotify}}
+    <div class="col-lg-2 col-md-2 col-sm-2">
+	       <img class="img-responsive logo-image" src="../images/spotify_logo1.png" />
+    </div>
+<div class="col-lg-10 col-md-10 col-sm-10">
+  {{#each spotify}}
+  <div class="spotify-row">
+  <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}?sharing=true" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+</div>
+  {{/each}}
+</div>
+{{/if}}
+  </div>

@@ -88,7 +88,8 @@ router.post('/browse', function(req, res, next) {
         res.render('index', {
           youtube: youtube,
           soundcloud: soundcloud,
-          spotify: spotify
+          spotify: spotify,
+          query: req.body.search
         })
       }
     }
@@ -101,19 +102,57 @@ router.post('/browse', function(req, res, next) {
     });
 
   youTube.search(req.body.search, 2, callback);
-	SC.get('/tracks', { q: req.body.search, limit: 10}, callback);
+	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
 
-
+})
 router.get('/download', function(req, res, next) {
   console.log('made request')
   console.log('https://www.youtube.com/watch?v=' + req.query.v)
 	mp3.download('https://www.youtube.com/watch?v=' + req.query.v, 'LXJS 2013 Keynote', function(err) {
 	    if(err) return console.log(err);
 	    console.log('Download completed!');
-      
+
 	});
 })
 
+router.get('/soundcloud', function(req, res) {
+	SC.get('/tracks', { q: req.query.search, limit: 10}, function(err, track) {
+    if(err) {
+      console.log(err)
+      return next(err);
+    }
+    else {
+      res.render('solo', {
+        soundcloud: track
+      })
+    }
+  });
+})
+
+router.get('/youtube', function(req, res) {
+  youTube.search(req.query.search, 10, function(err, result) {
+    if(err) {
+      console.log(err)
+      return next(err);
+    }
+    else {
+      res.render('solo', {
+        youtube: result["items"]
+      })
+    }
+  })
+})
+
+router.get('/spotify', function(req, res) {
+  spotifyApi.searchTracks(req.query.search)
+    .then(function(data) {
+      res.render('solo', {
+        spotify: data.body.tracks.items
+      }) }, function(error) {
+      console.log("PROMISE ERROR", error);
+      next(error)
+    });
+})
 router.use(function(req, res, next){
   if (!req.user) {
     res.redirect('/login');
