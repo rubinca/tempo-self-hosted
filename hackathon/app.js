@@ -13,7 +13,6 @@ var auth = require('./routes/auth');
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
 
-
 var users = require('./routes/users');
 
 var app = express();
