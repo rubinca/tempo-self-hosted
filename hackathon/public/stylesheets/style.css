@@ -6,9 +6,8 @@ html, body {
   background-size: cover;
 }
 
-}
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #e6e6e6;
 }
@@ -20,6 +19,10 @@ body {
   padding: 1em 0;
 }
 
+.search {
+  opacity: .6;
+  background-color: rgba(230, 230, 230, 0.5);
+}
 #logo {
   height: 2.2em;
   position: relative;
@@ -27,9 +30,19 @@ body {
 }
 
 nav {
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 nav:hover {
     opacity: 1.0;
+}
+
+.logo-image{
+  position: absolute;
+  text-align: center;
+  padding: 1px
+  margin-right: 5px
+}
+.background-thing{
+  background-color: rgba(230, 230, 230, 0.3);
 }
