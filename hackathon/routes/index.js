@@ -164,14 +164,27 @@ router.get('/spotify', function(req, res) {
     });
 })
 
-// what the fuck is this
-// router.use(function(req, res, next){
-//   res.redirect('/')
-// });
 
 router.get('/account', function(req, res, next) {
   if(req.user) {
-	res.render('account');
+    Playlist.find({user: req.user._id}, function(err, playlists) {
+      if (err) {
+        next(err)
+      }
+      else {
+        playlists.map(function(el) {
+          return el.map(function(elem) {
+            elem[elem.kind] = true;
+          })
+        })
+        res.render('account', {
+          playlists: playlists
+        })
+      }
+    })
+  }
+  else {
+    res.redirect('/login')
   }
 });
 
