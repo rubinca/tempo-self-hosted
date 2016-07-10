@@ -40,7 +40,7 @@ var playlistSchema = new mongoose.Schema({
   user: mongoose.Schema.types.ObjectId,
   name: String,
   songs: [{
-    id:String,
+    id: String,
     kind: String
   }]
 })
