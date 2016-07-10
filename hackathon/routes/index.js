@@ -29,13 +29,6 @@ var initOAuth = function(req, res) {
   res.end();
 };
 
-router.use(function(req, res, next){
-  if (!req.user) {
-    res.redirect('/login');
-  } else {
-    return next();
-  }
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -76,8 +69,10 @@ router.post('/', function(req, res, next) {
             youtube = youtube.concat(results[i]["items"])
 
           }
-          else if(results[i].body.tracks) {
-            spotify = spotify.concat(results[i].body.tracks.items)
+          else if(results[i].body) {
+            if(results[i].body.tracks) {
+              spotify = spotify.concat(results[i].body.tracks.items)
+            }
           }
           else {
             console.log("IDK", results)
@@ -102,5 +97,14 @@ router.post('/', function(req, res, next) {
   youTube.search(req.body.search, 2, callback);
 	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
 })
+
+router.use(function(req, res, next){
+  if (!req.user) {
+    res.redirect('/login');
+  } else {
+    return next();
+  }
+});
+
 
 module.exports = router;
