@@ -37,7 +37,7 @@ userSchema.virtual('name.full').get(function() {
 // })
 
 var playlistSchema = new mongoose.Schema({
-  user: mongoose.Schema.types.ObjectId,
+  user: mongoose.Schema.Types.ObjectId,
   name: String,
   songs: [{
     id: String,

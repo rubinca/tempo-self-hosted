@@ -173,7 +173,7 @@ router.get('/account', function(req, res, next) {
       }
       else {
         playlists.map(function(el) {
-          return el.map(function(elem) {
+          return el.songs.map(function(elem) {
             elem[elem.kind] = true;
           })
         })
