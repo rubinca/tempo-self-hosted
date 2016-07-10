@@ -65,8 +65,9 @@ body {
 
 
 #logo {
-  max-width: 10%;
-  flex:auto;
+  height: 2.2em;
+  position: relative;
+  top: -8px;
 }
 
 nav {
