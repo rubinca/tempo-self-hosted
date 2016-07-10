@@ -3,6 +3,9 @@ var router = express.Router();
 var YouTube = require('youtube-node');
 var mp3 = require('youtube-mp3');
 var path = require('path');
+var models = require('../models/models');
+var User = models.User;
+var Playlist = models.Playlist;
 
 var youTube = new YouTube();
 youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
@@ -119,19 +122,7 @@ youtubedl.exec('http://www.youtube.com/?v=' + req.query.v, ['-x', '--audio-forma
     }
   }
   res.download(path.resolve(__dirname + "/../" + output[output.indexOf(string)].substring(output[output.indexOf(string)].indexOf(':') + 2)));
-
-  // res.sendFile()
-});
-
-//   var video = youtubedl('http://www.youtube.com/?v=' + req.query.v,
-//   // Optional arguments passed to youtube-dl.
-//   ['-x', '-v', "--audio-format", 'mp3'],
-//   // Additional options can be given for calling `child_process.execFile()`.
-//   { cwd: __dirname });
-
-
-// video.pipe(res);
-
+  });
 })
 
 router.get('/soundcloud', function(req, res) {
@@ -172,6 +163,8 @@ router.get('/spotify', function(req, res) {
       next(error)
     });
 })
+
+
 router.use(function(req, res, next){
   res.redirect('/')
 });
@@ -181,6 +174,48 @@ router.get('/account', function(req, res, next) {
 	res.render('account');
   }
 });
+
+router.post('/addPlaylist', function(req, res, next) {
+  // get a post request with req.body.title, req.user._id is our user
+  // create mongo entry for user with the name of the playlist and an empty array of songs objects
+  var c = new Playlist {
+    user: req.user._id,
+    name: req.body.title,
+    songs: []
+  }.save(function(err, song) {
+    if (err) {
+      next(err)
+    }
+    else {
+      res.status(200).send('addedPlaylist');
+    }
+  })
+})
+
+router.post('/addToPlaylist', function(req, res, next) {
+  // get a post request with req.body.NAME_OF_PLAYLIST and req.body.ID_OF_SONG
+  // search mongo for playlist within the user and get the list of current songs
+  // append this new song to the end of our list of songs
+  // update mongo with new data
+
+  Playlist.find({title: req.body.title}, function(err, playlist) {
+    if (err) {
+      next(err)
+    }
+    else {
+      playlist = playlist.songs.push(req.body.ID_OF_SONG);
+      playlist.save(function(err, playlist) {
+        if (err) {
+          next(err)
+        }
+        else {
+          res.status(200).send('addedSongToPlayList')
+        }
+      })
+    }
+  })
+
+})
 
 
 module.exports = router;
