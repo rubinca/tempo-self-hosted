@@ -13,7 +13,6 @@
   </div>
 
 <div class="row background-thing">
-<button type="button" data-toggle="modal" data-target="#myModal" id="addPlaylist">Create New Playlist..</button>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -35,24 +34,7 @@
   </div>
 <!--
 $('#mymodal').modal('toggle') -->
-<script>
-$('#submitPlaylist').on('click', function(e) {
-  e.preventDefault()
 
-  $.ajax({
-    method: "POST",
-    url: "/addPlaylist",
-    data: {
-      type: "youtube",
-      title: $('#title').val()
-    },
-    success: function(ev) {
-      $('#mymodal').modal('toggle')
-    }
-    }
-  })
-})
-</script>
 
 
 
@@ -95,7 +77,6 @@ $('#soundcloud').on('click', function(e) {
       frameborder="0"></iframe>
       <form action='/download'>
       	<input class="btn btn-primary" type='submit' value="Download">
-      	<!-- <button type="button" class="submit-button btn btn-primary">Download</button> -->
       	<input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id.videoId}}">
       </form>
 
@@ -107,34 +88,38 @@ $('#soundcloud').on('click', function(e) {
         <ul class="dropdown-menu" aria-labelledby="dLabel">
           {{#if playlists}}
           {{#each playlists}}
-          <li><a href="" </li>
+          <li><button random='{{this._id}}'</li>
             {{/each}}
             {{/if}}
-          <li><button type="button" data-toggle="modal" data-target="#myModal" id="addPlaylist">Create New Playlist..</button></li>
+          <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" random="{{this.id.videoId}}">Create New Playlist..</button></li>
         </ul>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">New Playlist</h4>
-              </div>
-              <div class="modal-body">
-                  <input type="text" name="title" class="form-control" id="title">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" id="submitPlaylist" class="btn btn-primary">Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-
     </div>
   {{/each}}
   </div>
 </div>
+
+<script>
+$('.addPlaylist').on('click', function(e) {
+  $('#submitPlaylist').attr('random', $(e.target).attr('random'))
+})
+$('#submitPlaylist').on('click', function(e) {
+  e.preventDefault()
+
+  $.ajax({
+    method: "POST",
+    url: "/addPlaylist",
+    data: {
+      type: "youtube",
+      title: $('#title').val(),
+      id: $(e.target).attr('random')
+    },
+    success: function(ev) {
+      $('#myModal').modal('toggle')
+    }
+  })
+})
+</script>
 
 <script>
 $('#youtube').on('click', function(e) {

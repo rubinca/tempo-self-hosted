@@ -164,10 +164,10 @@ router.get('/spotify', function(req, res) {
     });
 })
 
-
-router.use(function(req, res, next){
-  res.redirect('/')
-});
+// what the fuck is this
+// router.use(function(req, res, next){
+//   res.redirect('/')
+// });
 
 router.get('/account', function(req, res, next) {
   if(req.user) {
@@ -176,12 +176,14 @@ router.get('/account', function(req, res, next) {
 });
 
 router.post('/addPlaylist', function(req, res, next) {
+  console.log('attempting to add playlist', req.body)
   // get a post request with req.body.title, req.user._id is our user
   // create mongo entry for user with the name of the playlist and an empty array of songs objects
   var c = new Playlist({
     user: req.user._id,
     name: req.body.title,
-    songs: []
+    songs: [{id: req.body.id,
+    kind: req.body.type}]
   }).save(function(err, song) {
     if (err) {
       next(err)

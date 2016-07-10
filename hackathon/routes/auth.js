@@ -44,7 +44,12 @@ module.exports = function(passport) {
 
   // GET Login page
   router.get('/login', function(req, res) {
-    res.render('login');
+    if(req.user) {
+      return res.render('account')
+    }
+    else {
+      return res.render('login');
+    }
   });
 
   // POST Login page
