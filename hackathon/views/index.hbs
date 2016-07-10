@@ -1,5 +1,4 @@
 <div class="page-container">
-
   <div class="row search-row">
     <form method="POST">
       <div class="input-group input-group-lg">
@@ -29,4 +28,9 @@
       frameborder="0"></iframe>
     </div>
   {{/each}}
+
+  {{#each spotify}}
+  <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+  {{/each}}
+
 </div>
