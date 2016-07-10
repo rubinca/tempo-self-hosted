@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "express": "^4.13.4",
     "hbs": "~3.1.0",
+    "mongoose": "^4.5.3",
     "morgan": "~1.6.1",
     "node-soundcloud": "0.0.5",
     "passport": "^0.3.2",
