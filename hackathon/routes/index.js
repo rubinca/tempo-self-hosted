@@ -38,10 +38,6 @@ var initOAuth = function(req, res) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('land');
-});
-
-router.get('/browse', function(req, res, next) {
   res.render('index', {
     clientId: process.env.CLIENT_ID
   });
