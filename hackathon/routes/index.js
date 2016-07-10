@@ -69,8 +69,10 @@ router.post('/', function(req, res, next) {
             youtube = youtube.concat(results[i]["items"])
 
           }
-          else if(results[i].body.tracks) {
-            spotify = spotify.concat(results[i].body.tracks.items)
+          else if(results[i].body) {
+            if(results[i].body.tracks) {
+              spotify = spotify.concat(results[i].body.tracks.items)
+            }
           }
           else {
             console.log("IDK", results)
@@ -108,5 +110,6 @@ router.use(function(req, res, next){
 router.get('/account', function(req, res, next) {
 	res.render('account');
 });
+
 
 module.exports = router;
