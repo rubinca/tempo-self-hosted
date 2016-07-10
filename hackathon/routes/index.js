@@ -89,12 +89,23 @@ router.post('/', function(req, res, next) {
         }
         spotify = spotify.splice(0, 3);
         console.log("SPOTIFY RESULTS", spotify)
-        res.render('index', {
-          youtube: youtube,
-          soundcloud: soundcloud,
-          spotify: spotify,
-          query: req.body.search
-        })
+        if(req.user) {
+          Playlist.find({user: req.user._id}, function(err, playlists) {
+            if (err) {
+              next(err)
+            }
+            else {
+              console.log("THESE ARE THE PLAYLISTS", playlists)
+              res.render('index', {
+                youtube: youtube,
+                soundcloud: soundcloud,
+                spotify: spotify,
+                query: req.body.search,
+                playlists: playlists
+              })
+            }
+          })
+        }
       }
     }
   }
@@ -208,28 +219,17 @@ router.post('/addPlaylist', function(req, res, next) {
 })
 
 router.post('/addToPlaylist', function(req, res, next) {
-  // get a post request with req.body.NAME_OF_PLAYLIST and req.body.ID_OF_SONG
-  // search mongo for playlist within the user and get the list of current songs
-  // append this new song to the end of our list of songs
-  // update mongo with new data
-
-  Playlist.find({title: req.body.title}, function(err, playlist) {
-    if (err) {
-      next(err)
-    }
-    else {
-      playlist = playlist.songs.push(req.body.ID_OF_SONG);
-      playlist.save(function(err, playlist) {
-        if (err) {
-          next(err)
-        }
-        else {
-          res.status(200).send('addedSongToPlayList')
-        }
-      })
-    }
+  Playlist.findById(req.body.playlist, function(error, playlist) {
+    playlist.songs.push({id: req.body.song, kind: req.body.kind})
+    playlist.save(function(err, playlist) {
+      if (err) {
+        next(err)
+      }
+      else {
+        res.status(200).send('updatedPlaylist');
+      }
   })
-
+})
 })
 
 

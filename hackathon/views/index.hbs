@@ -65,11 +65,9 @@ $('#soundcloud').on('click', function(e) {
           <span class="caret"></span>
         </button>
             <ul class="dropdown-menu" aria-labelledby="dLabel">
-              {{#if playlists}}
-              {{#each playlists}}
-              <li><button random='{{this._id}}'</li>
+                {{#each ../playlists}}
+                  <li><button class="listPlaylist" playlist='{{this._id}}' random='{{../id}}' kind="soundcloud">{{this.name}}</button></li>
                 {{/each}}
-                {{/if}}
               <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" kind="soundcloud" random="{{this.id}}">Create New Playlist..</button></li>
             </ul>
     </div>
@@ -95,18 +93,15 @@ $('#soundcloud').on('click', function(e) {
       	<!-- <button type="button" class="submit-button btn btn-primary">Download</button> -->
       	<input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id.videoId}}">
       </form>
-
       <div class="dropdown">
         <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Add To Playlist
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dLabel">
-          {{#if playlists}}
-          {{#each playlists}}
-          <li><button random='{{this._id}}'</li>
+          {{#each ../playlists}}
+          <li><button class="listPlaylist" playlist='{{this._id}}' random='{{../id.videoId}}' kind="youtube">{{this.name}}</button></li>
             {{/each}}
-            {{/if}}
           <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" kind="youtube" random="{{this.id.videoId}}">Create New Playlist..</button></li>
         </ul>
       </div>
@@ -163,17 +158,34 @@ $('#submitPlaylist').on('click', function(e) {
       <span class="caret"></span>
     </button>
         <ul class="dropdown-menu" aria-labelledby="dLabel">
-          {{#if playlists}}
-          {{#each playlists}}
-          <li><button random='{{this._id}}'</li>
+          {{#each ../playlists}}
+          <li><button class="listPlaylist" playlist='{{this._id}}' random='{{../id}}' kind="spotify">{{this.name}}</button></li>
             {{/each}}
-            {{/if}}
           <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" kind="spotify" random="{{this.id}}">Create New Playlist..</button></li>
         </ul>
 </div>
   {{/each}}
 </div>
 </div>
+
+<script>
+$(".listPlaylist").on('click', function(e) {
+  e.preventDefault()
+  $.ajax({
+    method: "POST",
+    url: "/addToPlaylist",
+    data: {
+      playlist: $(e.target).attr('playlist'),
+      song: $(e.target).attr('random'),
+      kind: $(e.target).attr('kind')
+    },
+    success: function(ev) {
+      console.log("SUCCESS WITH ADDING")
+    }
+  })
+})
+
+</script>
 
 <script>
 $('.addPlaylist').on('click', function(e) {
