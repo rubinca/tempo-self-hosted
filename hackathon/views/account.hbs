@@ -1,7 +1,34 @@
 
-<h3>Current Queue</h3>
+<div>Playlists</div>
+{{#each playlists}}
+  {{#each this.songs}}
+    {{if this.spotify}}
+    <div class="spotify-row">
+      <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}?sharing=true" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+    {{/if}}
+    {{if this.youtube}}
+    <div class="youtube-row">
+      <iframe id="ytplayer" type="text/html" width="100%" height="100" src="https://www.youtube.com/embed/{{this.id}}?autoplay=0&origin=http://example.com"
+      frameborder="0"></iframe>
+      <form action='/download'>
+        <input style="background-color:grey; border:none; width: 100%; height: 30px; opacity: 0.9"class="btn btn-primary" type='submit' value="Download">
+        <!-- <button type="button" class="submit-button btn btn-primary">Download</button> -->
+        <input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id}}">
+      </form>
+    </div>
+    {{/if}}
+    {{if this.soundcloud}}
+    <div class="soundcloud-row">
+      <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;sharing=true&amp;liking=true&amp;show_reposts=false&amp;
+      visual=true" style="display: block; float: left"></iframe>
+    </div>
+    {{/if}}
+  {{/each}}
+{{/each}}
+<!-- <h3>Current Queue</h3> -->
 
-<table class="table table-inverse">
+<!-- <table class="table table-inverse">
   <thead>
     <tr>
       <th>#</th>
@@ -32,3 +59,4 @@
     </tr>
   </tbody>
 </table>
+ -->
