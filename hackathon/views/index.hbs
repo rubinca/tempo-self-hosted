@@ -2,7 +2,7 @@
   <div class="row search-row">
     <form method="POST" class="search">
       <div class="input-group input-group-lg">
-        <input type="text" class="form-control" name="search" placeholder="Search for...">
+        <input type="text" id="searchbar" class="form-control" name="search" placeholder="Search for...">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button">
             <span class="glyphicon glyphicon-search"></span>
@@ -15,10 +15,16 @@
 <div class="row background-thing">
 	{{#if soundcloud}}
   <div class="col-lg-2 col-md-2 col-sm-2">
-    <img class="img-responsive logo-image" src="../images/soundcloud.png" />
+    <img id="soundcloud" class="img-responsive logo-image" src="../images/soundcloud.png" />
   </div>
 	{{/if}}
 
+<script>
+$('#soundcloud').on('click', function(e) {
+  e.preventDefault()
+  window.location = '/soundcloud?search={{query}}'
+})
+</script>
 
 
 <div class="col-lg-10 col-md-10 col-sm-10">
@@ -34,7 +40,7 @@
 <div class="row background-thing">
 	{{#if youtube}}
     <div class="col-lg-2 col-md-2 col-sm-2">
-      <img class="img-responsive logo-image" src="../images/youtube.png" />
+      <img id="youtube" class="img-responsive logo-image" src="../images/youtube.png" />
     </div>
 	{{/if}}
 
@@ -48,27 +54,40 @@
       	<!-- <button type="button" class="submit-button btn btn-primary">Download</button> -->
       	<input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id.videoId}}">
       </form>
+
     </div>
   {{/each}}
   </div>
 </div>
 
+<script>
+$('#youtube').on('click', function(e) {
+  e.preventDefault()
+  window.location = '/youtube?search={{query}}'
+})
+</script>
 
 
 <div class="row background-thing">
 	{{#if spotify}}
     <div class="col-lg-2 col-md-2 col-sm-2">
-	       <img class="img-responsive logo-image" src="../images/spotify_logo1.png" />
+	       <img id="spotify" class="img-responsive logo-image" src="../images/spotify_logo1.png" />
     </div>
 	{{/if}}
 
 <div class="col-lg-10 col-md-10 col-sm-10">
   {{#each spotify}}
   <div class="spotify-row">
-  <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+  <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}?sharing=true" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
 </div>
   {{/each}}
 </div>
 </div>
 
 
+<script>
+$('#spotify').on('click', function(e) {
+  e.preventDefault()
+  window.location = '/spotify?search={{query}}'
+})
+</script>

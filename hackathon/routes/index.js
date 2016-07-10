@@ -89,7 +89,8 @@ router.post('/', function(req, res, next) {
         res.render('index', {
           youtube: youtube,
           soundcloud: soundcloud,
-          spotify: spotify
+          spotify: spotify,
+          query: req.body.search
         })
       }
     }
@@ -103,8 +104,8 @@ router.post('/', function(req, res, next) {
 
   youTube.search(req.body.search, 2, callback);
 	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
-})
 
+})
 router.get('/download', function(req, res, next) {
 youtubedl.exec('http://www.youtube.com/?v=' + req.query.v, ['-x', '--audio-format', 'mp3'], {}, function(err, output) {
   if (err) throw err;
@@ -130,18 +131,55 @@ youtubedl.exec('http://www.youtube.com/?v=' + req.query.v, ['-x', '--audio-forma
 
 
 // video.pipe(res);
+
 })
 
+router.get('/soundcloud', function(req, res) {
+	SC.get('/tracks', { q: req.query.search, limit: 10}, function(err, track) {
+    if(err) {
+      console.log(err)
+      return next(err);
+    }
+    else {
+      res.render('solo', {
+        soundcloud: track
+      })
+    }
+  });
+})
+
+router.get('/youtube', function(req, res) {
+  youTube.search(req.query.search, 10, function(err, result) {
+    if(err) {
+      console.log(err)
+      return next(err);
+    }
+    else {
+      res.render('solo', {
+        youtube: result["items"]
+      })
+    }
+  })
+})
+
+router.get('/spotify', function(req, res) {
+  spotifyApi.searchTracks(req.query.search)
+    .then(function(data) {
+      res.render('solo', {
+        spotify: data.body.tracks.items
+      }) }, function(error) {
+      console.log("PROMISE ERROR", error);
+      next(error)
+    });
+})
 router.use(function(req, res, next){
-  if (!req.user) {
-    res.redirect('/login');
-  } else {
-    return next();
-  }
+  res.redirect('/')
 });
 
 router.get('/account', function(req, res, next) {
+  if(req.user) {
 	res.render('account');
+  }
 });
 
 
