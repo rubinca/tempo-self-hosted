@@ -32,6 +32,10 @@ var initOAuth = function(req, res) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.render('land');
+});
+
+router.get('/browse', function(req, res, next) {
   res.render('index', {
     clientId: process.env.CLIENT_ID
   });
@@ -78,7 +82,7 @@ router.post('/', function(req, res, next) {
             console.log("IDK", results)
           }
         }
-        //spotify.slice(0, 3);
+        spotify = spotify.splice(0, 3);
         console.log("SPOTIFY RESULTS", spotify)
         res.render('index', {
           youtube: youtube,
