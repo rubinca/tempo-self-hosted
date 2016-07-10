@@ -43,7 +43,7 @@ router.get('/callback', function(req, res, next) {
 });
 
 
-router.post('/browse', function(req, res, next) {
+router.post('/', function(req, res, next) {
   var results = [];
   // console.log("REQBODY", req.body.search)
   var callback = function(error, result) {
@@ -150,15 +150,13 @@ router.get('/spotify', function(req, res) {
     });
 })
 router.use(function(req, res, next){
-  if (!req.user) {
-    res.redirect('/login');
-  } else {
-    return next();
-  }
+  res.redirect('/')
 });
 
 router.get('/account', function(req, res, next) {
+  if(req.user) {
 	res.render('account');
+  }
 });
 
 
