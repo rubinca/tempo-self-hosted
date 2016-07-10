@@ -44,8 +44,8 @@
       <iframe id="ytplayer" type="text/html" width="100%" height="100" src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=0&origin=http://example.com"
       frameborder="0"></iframe>
       <form action='/download'>
-      	<input type='submit'>
-      	<button type="button" class="submit-button btn btn-primary">Download</button>
+      	<input class="btn btn-primary" type='submit' value="Download">
+      	<!-- <button type="button" class="submit-button btn btn-primary">Download</button> -->
       	<input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id.videoId}}">
       </form>
     </div>
@@ -72,17 +72,3 @@
 </div>
 
 
-
-<!-- <script>
-$('.submit-button').click(function(e) {
-	e.preventDefault();
-  $.ajax({
-    method: "GET",
-    url: "/download?v=" + $(".youtubeIdHolder").attr("value"),
-    success: function(e){
-      var e = JSON.parse(e)
-      $(".submit-button").html('Downloaded')
-    }
-  })
-});
-</script> -->
