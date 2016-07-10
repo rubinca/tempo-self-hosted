@@ -1,44 +1,32 @@
 <div class="page-container">
 
-<form method="POST" class="form-inline">
-  <div class="form-group" id="searchbar">
-    <label for="search">Search</label>
-    <input type="text" class="form-control" id="search" placeholder="Enter your search">
+  <div class="row search-row">
+    <form method="POST">
+      <div class="input-group input-group-lg">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </form>
   </div>
-  <button type="submit" class="btn btn-primary">Search</button>
-</form>
-<div>
+  <h2>soundcloud</h2>
 	{{#each soundcloud}}
-<iframe width="70%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/
-{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;
-visual=true" style="display: block; float: left"></iframe>
+    <div class="row soundcloud-row">
+
+      <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/
+      {{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;
+      visual=true" style="display: block; float: left"></iframe>
+    </div>
 	{{/each}}
+  <h2>youtube</h2>
+  {{#each youtube}}
+    <div class="row youtube-row">
+
+      <iframe id="ytplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=1&origin=http://example.com"
+      frameborder="0"></iframe>
+    </div>
+  {{/each}}
 </div>
-<div>
-{{#each youtube}}
-<iframe id="ytplayer" type="text/html" width="640" height="390"
-  src="https://www.youtube.com/embed/{{this.id.videoId}}?autoplay=1&origin=http://example.com"
-  frameborder="0"></iframe>
-{{/each}}
-</div>
-
-
-</div>
-
-<!-- <script>
-$('.submit-button').click(function(e) {
-	$.ajax({
-		method: "GET",
-		url: "https://api.soundcloud.com/tracks?client_id=" + process.env.CLIENT_ID,
-		data: {
-			title: $("searchbar").val(),
-		},
-		sucesss: function(e) {
-			var e = JSON.parse(e);
-
-		}
-
-	})
-})
-
-</script> -->
