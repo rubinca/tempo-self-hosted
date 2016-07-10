@@ -59,6 +59,20 @@ $('#soundcloud').on('click', function(e) {
       <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;sharing=true&amp;liking=true&amp;show_reposts=false&amp;
       visual=true" style="display: block; float: left"></iframe>
     </div>
+    <div class="dropdown">
+        <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Add To Playlist
+          <span class="caret"></span>
+        </button>
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
+              {{#if playlists}}
+              {{#each playlists}}
+              <li><button random='{{this._id}}'</li>
+                {{/each}}
+                {{/if}}
+              <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" kind="soundcloud" random="{{this.id}}">Create New Playlist..</button></li>
+            </ul>
+    </div>
 	{{/each}}
 </div>
 </div>
@@ -91,7 +105,7 @@ $('#soundcloud').on('click', function(e) {
           <li><button random='{{this._id}}'</li>
             {{/each}}
             {{/if}}
-          <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" random="{{this.id.videoId}}">Create New Playlist..</button></li>
+          <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" kind="youtube" random="{{this.id.videoId}}">Create New Playlist..</button></li>
         </ul>
       </div>
     </div>
@@ -99,27 +113,7 @@ $('#soundcloud').on('click', function(e) {
   </div>
 </div>
 
-<script>
-$('.addPlaylist').on('click', function(e) {
-  $('#submitPlaylist').attr('random', $(e.target).attr('random'))
-})
-$('#submitPlaylist').on('click', function(e) {
-  e.preventDefault()
 
-  $.ajax({
-    method: "POST",
-    url: "/addPlaylist",
-    data: {
-      type: "youtube",
-      title: $('#title').val(),
-      id: $(e.target).attr('random')
-    },
-    success: function(ev) {
-      $('#myModal').modal('toggle')
-    }
-  })
-})
-</script>
 
 <script>
 $('#youtube').on('click', function(e) {
@@ -161,9 +155,46 @@ $('#submitPlaylist').on('click', function(e) {
   <div class="spotify-row">
   <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}?sharing=true" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
 </div>
+<div class="dropdown">
+    <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Add To Playlist
+      <span class="caret"></span>
+    </button>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          {{#if playlists}}
+          {{#each playlists}}
+          <li><button random='{{this._id}}'</li>
+            {{/each}}
+            {{/if}}
+          <li><button type="button" data-toggle="modal" data-target="#myModal" class="addPlaylist" kind="spotify" random="{{this.id}}">Create New Playlist..</button></li>
+        </ul>
+</div>
   {{/each}}
 </div>
 </div>
+
+<script>
+$('.addPlaylist').on('click', function(e) {
+  $('#submitPlaylist').attr('random', $(e.target).attr('random'))
+  $('#submitPlaylist').attr('kind', $(e.target).attr('kind'))
+})
+$('#submitPlaylist').on('click', function(e) {
+  e.preventDefault()
+
+  $.ajax({
+    method: "POST",
+    url: "/addPlaylist",
+    data: {
+      type: $(e.target).attr('kind'),
+      title: $('#title').val(),
+      id: $(e.target).attr('random')
+    },
+    success: function(ev) {
+      $('#myModal').modal('toggle')
+    }
+  })
+})
+</script>
 
 
 <script>
