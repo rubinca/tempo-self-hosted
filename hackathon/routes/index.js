@@ -41,8 +41,13 @@ var initOAuth = function(req, res) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var george = null
+  if(req.user) {
+    george = true
+  }
   res.render('index', {
-    clientId: process.env.CLIENT_ID
+    clientId: process.env.CLIENT_ID,
+    george: george
   });
 });
 
@@ -95,15 +100,30 @@ router.post('/', function(req, res, next) {
               next(err)
             }
             else {
+              var george = null
+              if(req.user) {
+                george = true
+              }
               console.log("THESE ARE THE PLAYLISTS", playlists)
               res.render('index', {
                 youtube: youtube,
                 soundcloud: soundcloud,
                 spotify: spotify,
                 query: req.body.search,
-                playlists: playlists
+                playlists: playlists,
+                george: george
               })
             }
+          })
+        }
+        else {
+          george = false
+          res.render('index', {
+            youtube: youtube,
+            soundcloud: soundcloud,
+            spotify: spotify,
+            query: req.body.search,
+            george: george
           })
         }
       }
@@ -143,8 +163,13 @@ router.get('/soundcloud', function(req, res) {
       return next(err);
     }
     else {
+      var george = null
+      if(req.user) {
+        george = true
+      }
       res.render('solo', {
-        soundcloud: track
+        soundcloud: track,
+        george: george
       })
     }
   });
@@ -157,8 +182,13 @@ router.get('/youtube', function(req, res) {
       return next(err);
     }
     else {
+      var george = null
+      if(req.user) {
+        george = true
+      }
       res.render('solo', {
-        youtube: result["items"]
+        youtube: result["items"],
+        george: george
       })
     }
   })
@@ -167,8 +197,13 @@ router.get('/youtube', function(req, res) {
 router.get('/spotify', function(req, res) {
   spotifyApi.searchTracks(req.query.search)
     .then(function(data) {
+      var george = null
+      if(req.user) {
+        george = true
+      }
       res.render('solo', {
-        spotify: data.body.tracks.items
+        spotify: data.body.tracks.items,
+        george: george
       }) }, function(error) {
       console.log("PROMISE ERROR", error);
       next(error)
@@ -177,7 +212,9 @@ router.get('/spotify', function(req, res) {
 
 
 router.get('/account', function(req, res, next) {
+  var george = null
   if(req.user) {
+    george = true
     Playlist.find({user: req.user._id}, function(err, playlists) {
       if (err) {
         next(err)
@@ -189,7 +226,8 @@ router.get('/account', function(req, res, next) {
           })
         })
         res.render('account', {
-          playlists: playlists
+          playlists: playlists,
+          george: george
         })
       }
     })
