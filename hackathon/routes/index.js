@@ -178,11 +178,11 @@ router.get('/account', function(req, res, next) {
 router.post('/addPlaylist', function(req, res, next) {
   // get a post request with req.body.title, req.user._id is our user
   // create mongo entry for user with the name of the playlist and an empty array of songs objects
-  var c = new Playlist {
+  var c = new Playlist({
     user: req.user._id,
     name: req.body.title,
     songs: []
-  }.save(function(err, song) {
+  }).save(function(err, song) {
     if (err) {
       next(err)
     }
