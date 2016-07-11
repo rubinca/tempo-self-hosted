@@ -60,7 +60,7 @@ module.exports = function(passport) {
   // GET Logout page
   router.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/login');
+    res.redirect('/');
   });
 
   return router;
