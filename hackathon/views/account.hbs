@@ -66,17 +66,21 @@
 
   {{#each playlists}}
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3>HOME</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </div>
-    <div id="{{this.name}}" class="tab-pane fade">
-      <h3>Menu 1</h3>
+    <div id="{{this.name}}" class="tab-pane fade playlist">
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
   </div>
 </div>
   {{/each}}
+
+  <script>
+$('.playlist').on('click', {
+
+})
+
+  </script>
 
 <script>
 $(document).ready(function(){
