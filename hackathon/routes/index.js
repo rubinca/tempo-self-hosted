@@ -80,7 +80,12 @@ router.post('/', function(req, res, next) {
             }
           }
           else if(results[i].kind === "youtube#searchListResponse") {
-            youtube = youtube.concat(results[i]["items"])
+            for(var j = 0; j < results[i]["items"].length; j++) {
+              if(results[i]["items"][j].id.kind === "youtube#video")
+              youtube = youtube.concat(results[i]["items"])
+            }
+            console.log("YOUTUBE STUFF YO", youtube)
+            //not working still getting channel, manipulate results**
 
           }
           else if(results[i].body) {
