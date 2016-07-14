@@ -2,7 +2,11 @@
   <div class="row search-row">
     <form method="POST" class="search">
       <div class="input-group input-group-lg">
+        {{#if nigel}}
+        <input type="text" id="searchbar" class="form-control" name="search" placeholder="Search across multiple music libraries" value="UMFO">
+        {{else}}
         <input type="text" id="searchbar" class="form-control" name="search" placeholder="Search across multiple music libraries">
+        {{/if}}
         <span class="input-group-btn">
           <button class="btn btn-default" type="button">
             <span class="glyphicon glyphicon-search"></span>

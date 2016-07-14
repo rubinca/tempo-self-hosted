@@ -275,5 +275,101 @@ router.post('/addToPlaylist', function(req, res, next) {
 })
 })
 
+router.get('/george', function(req, res) {
+  var nigel = true
+  res.render('index', {
+    nigel: nigel
+  });
+})
+
+router.post('/george', function(req, res, next) {
+  var results = [];
+  // console.log("REQBODY", req.body.search)
+  var callback = function(error, result) {
+    if(error) {
+      console.log(error)
+      return next(error);
+    }
+    else {
+      results.push(result);
+
+      if(results.length === 3) {
+        var youtube = [];
+        var soundcloud = [];
+        var spotify = [];
+        console.log("RESULTS", results)
+        for( var i = 0; i < results.length; i++) {
+          //console.log("RESULTS", results)
+          if (results[i][0]) {
+            if(results[i][0].kind === "track") {
+              soundcloud = soundcloud.concat(results[i])
+            }
+          }
+          else if(results[i].kind === "youtube#searchListResponse") {
+            for(var j = 0; j < results[i]["items"].length; j++) {
+              if(results[i]["items"][j].id.kind === "youtube#video")
+              youtube = youtube.concat(results[i]["items"])
+            }
+            console.log("YOUTUBE STUFF YO", youtube)
+            //not working still getting channel, manipulate results**
+
+          }
+          else if(results[i].body) {
+            if(results[i].body.tracks) {
+              spotify = spotify.concat(results[i].body.tracks.items)
+            }
+          }
+          else {
+            console.log("IDK", results)
+          }
+        }
+        spotify = spotify.splice(0, 3);
+        console.log("SPOTIFY RESULTS", spotify)
+        if(req.user) {
+          Playlist.find({user: req.user._id}, function(err, playlists) {
+            if (err) {
+              next(err)
+            }
+            else {
+              var george = null
+              if(req.user) {
+                george = true
+              }
+              console.log("THESE ARE THE PLAYLISTS", playlists)
+              res.render('index', {
+                youtube: youtube,
+                soundcloud: soundcloud,
+                spotify: spotify,
+                query: req.body.search,
+                playlists: playlists,
+                george: george
+              })
+            }
+          })
+        }
+        else {
+          george = false
+          res.render('index', {
+            youtube: youtube,
+            soundcloud: soundcloud,
+            spotify: spotify,
+            query: req.body.search,
+            george: george
+          })
+        }
+      }
+    }
+  }
+
+  spotifyApi.searchTracks(req.body.search)
+    .then(callback.bind(null, null), function(error) {
+      console.log("PROMISE ERROR", error);
+      next(error)
+    });
+
+  youTube.search(req.body.search, 2, callback);
+	SC.get('/tracks', { q: req.body.search, limit: 3}, callback);
+
+})
 
 module.exports = router;
