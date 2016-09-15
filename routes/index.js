@@ -8,7 +8,7 @@ var User = models.User;
 var Playlist = models.Playlist;
 
 var youTube = new YouTube();
-youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
+youTube.setKey(process.env.YOUTUBE_KEY);
 
 var fs = require('fs');
 var youtubedl = require('youtube-dl');

@@ -1,3 +1,84 @@
+<ul class="tab">
+  {{#each playlists}}
+      <li><a href="#" class="tablinks" onclick="openCity(event, '{{this.name}}')">{{this.name}}</a></li>
+  {{/each}}
+</ul>
+
+{{#each playlists}}
+  <div id="{{this.name}}" class="tabcontent">
+    <h3>{{this.name}}</h3>
+    {{#each this.songs}}
+      {{#if this.spotify}}
+        <div class="spotify-row">
+          <iframe src="https://embed.spotify.com/?uri=spotify:track:{{this.id}}?sharing=true" width="100%" height="100" frameborder="0" allowtransparency="true"></iframe>
+        </div>
+      {{/if}}
+      {{#if this.youtube}}
+        <div class="youtube-row">
+          <iframe id="ytplayer" type="text/html" width="100%" height="100" src="https://www.youtube.com/embed/{{this.id}}?autoplay=0&origin=http://example.com"
+          frameborder="0"></iframe>
+          <form action='/download'>
+            <input style="background-color:grey; border:none; width: 100%; height: 30px; opacity: 0.9"class="btn btn-primary" type='submit' value="Download">
+            < <button type="button" class="submit-button btn btn-primary">Download</button>
+           <input type="hidden" class="youtubeIdHolder" name='v' value="{{this.id}}">
+          </form>
+        </div>
+      {{/if}}
+      {{#if this.soundcloud}}
+        <div class="soundcloud-row">
+          <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{this.id}}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;sharing=true&amp;liking=true&amp;show_reposts=false&amp;
+          visual=true" style="display: block; float: left"></iframe>
+        </div>
+      {{/if}}
+    {{/each}}
+  </div>
+{{/each}}
+
+
+<!-- <ul class="tab">
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'London')">London</a></li>
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'Paris')">Paris</a></li>
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</a></li>
+</ul> -->
+
+<!-- <div id="London" class="tabcontent">
+  <h3>London</h3>
+  <p>London is the capital city of England.</p>
+</div>
+
+<div id="Paris" class="tabcontent">
+  <h3>Paris</h3>
+  <p>Paris is the capital of France.</p>
+</div>
+
+<div id="Tokyo" class="tabcontent">
+  <h3>Tokyo</h3>
+  <p>Tokyo is the capital of Japan.</p>
+</div> -->
+<script>
+function openCity(evt, cityName) {
+    // Declare all variables
+    console.log("CityName", cityName);
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+
 <!-- <div class="container">
   <h2>Your Playlists</h2>
   <ul class="nav nav-tabs">
@@ -51,11 +132,10 @@
   });
 </script> -->
 
- -->
 
-<div class="container">
+<!-- <div class="container">
   <h2>Dynamic Tabs</h2>
-  
+
   <ul class="nav nav-tabs">
     {{#each playlists}}
     <li class="active"><a href="#home">{{this.name}}</a></li>
@@ -73,15 +153,15 @@
     </div>
   </div>
 </div>
-  {{/each}}
+  {{/each}} -->
 
-  <script>
+  <!-- <script>
 $('.playlist').on('click', {
 
 })
 
-  </script>
-
+  </script> -->
+<!--
 <script>
 $(document).ready(function(){
     $(".nav-tabs a").click(function(e){
@@ -89,7 +169,7 @@ $(document).ready(function(){
         $(this).tab('show');
     });
 });
-</script>
+</script> -->
 
 
 
